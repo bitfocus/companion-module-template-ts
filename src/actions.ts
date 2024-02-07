@@ -1,4 +1,6 @@
-module.exports = function (self) {
+import type { ModuleInstance } from './main.js'
+
+export function UpdateActions(self: ModuleInstance): void {
 	self.setActionDefinitions({
 		sample_action: {
 			name: 'My First Action',

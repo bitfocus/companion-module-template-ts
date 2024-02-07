@@ -1,11 +1,11 @@
-const { combineRgb } = require('@companion-module/base')
+import { combineRgb } from '@companion-module/base'
+import type { ModuleInstance } from './main.js'
 
-module.exports = async function (self) {
+export function UpdateFeedbacks(self: ModuleInstance): void {
 	self.setFeedbackDefinitions({
 		ChannelState: {
 			name: 'Example Feedback',
 			type: 'boolean',
-			label: 'Channel State',
 			defaultStyle: {
 				bgcolor: combineRgb(255, 0, 0),
 				color: combineRgb(0, 0, 0),
@@ -22,7 +22,7 @@ module.exports = async function (self) {
 			],
 			callback: (feedback) => {
 				console.log('Hello world!', feedback.options.num)
-				if (feedback.options.num > 5) {
+				if (Number(feedback.options.num) > 5) {
 					return true
 				} else {
 					return false
