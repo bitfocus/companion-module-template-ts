@@ -24,10 +24,10 @@
 	"devDependencies": {
 		"@companion-module/tools": "^2.0.0",
 		"eslint": "^9.9.1",
-		"husky": "^9.0.10",
-		"lint-staged": "^15.2.2",
+		"husky": "^9.1.5",
+		"lint-staged": "^15.2.9",
 		"prettier": "^3.3.3",
-		"typescript": "~5.4.5",
+		"typescript": "~5.5.4",
 		"typescript-eslint": "^8.2.0"
 	},
 	"prettier": "@companion-module/tools/.prettierrc.json",
