@@ -19,16 +19,17 @@
 		"url": "git+https://github.com/bitfocus/companion-module-your-module-name.git"
 	},
 	"dependencies": {
-		"@companion-module/base": "~1.10.0"
+		"@companion-module/base": "~1.11.0"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^2.0.0",
-		"eslint": "^9.9.1",
-		"husky": "^9.1.5",
-		"lint-staged": "^15.2.9",
+		"@companion-module/tools": "^2.1.0",
+		"@types/node": "^22.6.1",
+		"eslint": "^9.11.1",
+		"husky": "^9.1.6",
+		"lint-staged": "^15.2.10",
 		"prettier": "^3.3.3",
 		"typescript": "~5.5.4",
-		"typescript-eslint": "^8.2.0"
+		"typescript-eslint": "^8.7.0"
 	},
 	"prettier": "@companion-module/tools/.prettierrc.json",
 	"lint-staged": {
