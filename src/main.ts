@@ -14,6 +14,7 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 
 	async init(config: ModuleConfig): Promise<void> {
 		this.config = config
+		process.title = this.label
 
 		this.updateStatus(InstanceStatus.Ok)
 
@@ -28,6 +29,7 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 
 	async configUpdated(config: ModuleConfig): Promise<void> {
 		this.config = config
+		process.title = this.label
 	}
 
 	// Return config fields for web config
