@@ -1,5 +1,5 @@
 import { InstanceBase, runEntrypoint, InstanceStatus, SomeCompanionConfigField } from '@companion-module/base'
-import { GetConfigFields, type ModuleConfig } from './config.js'
+import { GetConfigFields, updateConfig, type ModuleConfig } from './config.js'
 import { UpdateVariableDefinitions } from './variables.js'
 import { UpgradeScripts } from './upgrades.js'
 import { UpdateActions } from './actions.js'
@@ -27,6 +27,11 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 	}
 
 	async configUpdated(config: ModuleConfig): Promise<void> {
+		// first make sure the config is complete (i.e. auto-update for new config features)
+		if (updateConfig(config)) {
+			//console.log('Adding missing config properties')
+			this.saveConfig(config)
+		}
 		this.config = config
 	}
 
