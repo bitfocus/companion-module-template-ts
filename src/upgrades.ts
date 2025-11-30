@@ -9,6 +9,7 @@ export const UpgradeScripts: CompanionStaticUpgradeScript<ModuleConfig, ModuleSe
 	// function (context, props) {
 	// 	return {
 	// 		updatedConfig: null,
+	//		updatedSecrets: null,
 	// 		updatedActions: [],
 	// 		updatedFeedbacks: [],
 	// 	}
