@@ -5,6 +5,10 @@ export interface ModuleConfig {
 	port: number
 }
 
+// Define secret-text type config options here
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface ModuleSecrets {}
+
 export function GetConfigFields(): SomeCompanionConfigField[] {
 	return [
 		{
