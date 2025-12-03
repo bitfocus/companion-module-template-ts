@@ -4,6 +4,7 @@ import { UpdateVariableDefinitions } from './variables.js'
 import { UpgradeScripts } from './upgrades.js'
 import { UpdateActions } from './actions.js'
 import { UpdateFeedbacks } from './feedbacks.js'
+import { UpdatePresets } from './presets.js'
 
 export class ModuleInstance extends InstanceBase<ModuleConfig> {
 	config!: ModuleConfig // Setup in init()
@@ -19,6 +20,7 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 
 		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
+		this.updatePresets() // export Presets
 		this.updateVariableDefinitions() // export variable definitions
 	}
 	// When module gets deleted
@@ -41,6 +43,10 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 
 	updateFeedbacks(): void {
 		UpdateFeedbacks(this)
+	}
+
+	updatePresets(): void {
+		UpdatePresets(this)
 	}
 
 	updateVariableDefinitions(): void {
