@@ -5,6 +5,24 @@ export interface ModuleConfig {
 	port: number
 }
 
+const defaultConfig: ModuleConfig = {
+	host: '',
+	port: 8000,
+}
+
+export function updateConfig(config: ModuleConfig): boolean {
+	let updated = false
+	for (const key in defaultConfig) {
+		if (!(key in config)) {
+			// a bit of contortion to get past TypeScript errors: "expression of type 'string' can't be used to index type 'ModuleConfig'."
+			const obj = { [key]: defaultConfig[key as keyof ModuleConfig] }
+			Object.assign(config, obj)
+			updated = true
+		}
+	}
+	return updated
+}
+
 export function GetConfigFields(): SomeCompanionConfigField[] {
 	return [
 		{
@@ -21,7 +39,7 @@ export function GetConfigFields(): SomeCompanionConfigField[] {
 			width: 4,
 			min: 1,
 			max: 65535,
-			default: 8000,
+			default: defaultConfig.port,
 		},
 	]
 }
