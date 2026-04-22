@@ -1,22 +1,38 @@
-import type { ModuleInstance } from './main.js'
-import { CompanionPresetDefinitions, combineRgb } from '@companion-module/base'
+import type { ModuleSchema } from './main.js'
+import type ModuleInstance from './main.js'
+import type { CompanionPresetDefinitions, CompanionPresetSection } from '@companion-module/base'
 
 export function UpdatePresets(self: ModuleInstance): void {
-	const presets: CompanionPresetDefinitions = {}
+	const structure: CompanionPresetSection[] = [
+		{
+			id: 'section1',
+			name: 'Section One',
+			definitions: [
+				{
+					id: 'group1',
+					name: 'Group One',
+					description: 'A starting point for preset definitions!',
+					type: 'simple',
+					presets: ['mylabel'],
+				},
+			],
+		},
+	]
+
+	const presets: CompanionPresetDefinitions<ModuleSchema> = {}
 	presets['mylabel'] = {
-		type: 'button',
-		category: 'Group One',
+		type: 'simple',
 		name: 'Name',
 		style: {
 			text: 'My first Preset button',
 			size: 'auto',
-			color: combineRgb(255, 255, 255),
-			bgcolor: combineRgb(0, 0, 0),
+			color: 0xffffff,
+			bgcolor: 0x000000,
 			show_topbar: false,
 		},
 		steps: [],
 		feedbacks: [],
 	}
 
-	self.setPresetDefinitions(presets)
+	self.setPresetDefinitions(structure, presets)
 }

@@ -1,14 +1,22 @@
-import { combineRgb } from '@companion-module/base'
-import type { ModuleInstance } from './main.js'
+import type ModuleInstance from './main.js'
+
+export type FeedbacksSchema = {
+	sample_feedback: {
+		type: 'boolean'
+		options: {
+			num: number
+		}
+	}
+}
 
 export function UpdateFeedbacks(self: ModuleInstance): void {
 	self.setFeedbackDefinitions({
-		ChannelState: {
+		sample_feedback: {
 			name: 'Example Feedback',
 			type: 'boolean',
 			defaultStyle: {
-				bgcolor: combineRgb(255, 0, 0),
-				color: combineRgb(0, 0, 0),
+				bgcolor: 0xff0000,
+				color: 0x000000,
 			},
 			options: [
 				{
@@ -18,11 +26,12 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 					default: 5,
 					min: 0,
 					max: 10,
+					clampValues: true, // If value is outside the min/max, clamp it to the min/max instead of rejecting the input
 				},
 			],
 			callback: (feedback) => {
 				console.log('Hello world!', feedback.options.num)
-				if (Number(feedback.options.num) > 5) {
+				if (feedback.options.num > 5) {
 					return true
 				} else {
 					return false

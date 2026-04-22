@@ -1,12 +1,22 @@
-import { InstanceBase, runEntrypoint, InstanceStatus, SomeCompanionConfigField } from '@companion-module/base'
+import { InstanceBase, InstanceStatus, type SomeCompanionConfigField } from '@companion-module/base'
 import { GetConfigFields, type ModuleConfig } from './config.js'
-import { UpdateVariableDefinitions } from './variables.js'
+import { UpdateVariableDefinitions, type VariablesSchema } from './variables.js'
 import { UpgradeScripts } from './upgrades.js'
-import { UpdateActions } from './actions.js'
-import { UpdateFeedbacks } from './feedbacks.js'
+import { UpdateActions, type ActionsSchema } from './actions.js'
+import { UpdateFeedbacks, type FeedbacksSchema } from './feedbacks.js'
 import { UpdatePresets } from './presets.js'
 
-export class ModuleInstance extends InstanceBase<ModuleConfig> {
+export type ModuleSchema = {
+	config: ModuleConfig
+	secrets: undefined
+	actions: ActionsSchema
+	feedbacks: FeedbacksSchema
+	variables: VariablesSchema
+}
+
+export { UpgradeScripts }
+
+export default class ModuleInstance extends InstanceBase<ModuleSchema> {
 	config!: ModuleConfig // Setup in init()
 
 	constructor(internal: unknown) {
@@ -53,5 +63,3 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 		UpdateVariableDefinitions(this)
 	}
 }
-
-runEntrypoint(ModuleInstance, UpgradeScripts)

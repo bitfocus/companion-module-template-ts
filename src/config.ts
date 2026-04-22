@@ -1,6 +1,6 @@
 import { Regex, type SomeCompanionConfigField } from '@companion-module/base'
 
-export interface ModuleConfig {
+export type ModuleConfig = {
 	host: string
 	port: number
 }
