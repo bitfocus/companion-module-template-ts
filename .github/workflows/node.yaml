@@ -15,10 +15,10 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Use Node.js 22.x
         # This should match the version of Node.js you have defined in the manifest.json runtime field
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22.x
       - name: Prepare Environment
@@ -56,9 +56,9 @@ jobs:
   #   timeout-minutes: 15
 
   #   steps:
-  #     - uses: actions/checkout@v4
+  #     - uses: actions/checkout@v7
   #     - name: Use Node.js 22.x
-  #       uses: actions/setup-node@v4
+  #       uses: actions/setup-node@v6
   #       with:
   #         node-version: 22.x
   #     - name: Prepare Environment
@@ -72,5 +72,3 @@ jobs:
   #         yarn test
   #       env:
   #         CI: true
-  #     - name: Send coverage
-  #       uses: codecov/codecov-action@v5
