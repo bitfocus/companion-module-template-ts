@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Package and attach to release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      # Needed to upload the built package as a release asset
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # A release can be published against any tag, not just the default branch
+          ref: ${{ github.event.release.tag_name }}
+      - name: Use Node.js 22.x
+        # This should match the version of Node.js you have defined in the manifest.json runtime field
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+      - name: Prepare Environment
+        run: |
+          corepack enable
+      - name: Prepare Environment (For template repository)
+        # Only run this step if the repository is a template repository
+        # If you are using this in a module, you can remove this step
+        if: ${{ contains(github.repository, 'companion-module-template-') }}
+        run: |
+          # Perform an install to generate the lockfile
+          yarn install
+        env:
+          CI: false
+      - name: Prepare module
+        run: |
+          yarn install
+        env:
+          CI: true
+      - name: Build package
+        run: |
+          if [ "$IS_PRERELEASE" = 'true' ]; then
+            yarn package --dev --prerelease
+          else
+            yarn package --dev
+          fi
+        env:
+          CI: true
+          IS_PRERELEASE: ${{ github.event.release.prerelease }}
+      - name: Attach package to release
+        # gh is preinstalled on the runner, so this needs no third party action.
+        # --clobber lets the workflow be re-run against a release that already has
+        # the asset attached.
+        run: |
+          gh release upload "${{ github.event.release.tag_name }}" ./*.tgz --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
