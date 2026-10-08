@@ -16,6 +16,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Use Node.js 26.x
         # This should match the version of Node.js you have defined in the manifest.json runtime field
         uses: actions/setup-node@v6
